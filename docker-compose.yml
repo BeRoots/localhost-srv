@@ -1,0 +1,28 @@
+version: "3.7"
+services:
+  main:
+    container_name: sd-ci-cd-srv
+    user: admin
+    build: 127.0.0.1:5000/sd-ci-cd-srv
+    image: sd-ci-cd-srv:latest
+    ports:
+      - "8080:8080"
+      - "49922:49922"
+      - "50000:50000"
+    networks:
+      - xnetwork
+    environment:
+      - MY_VAR=MyVar
+    volumes:
+    - ./0_volumes/git:/srv/git
+    - ./0_volumes/jenkins:/srv/jenkins
+
+networks:
+  xnetwork:
+    name: xnetwork
+
+volumes:
+  0_volumes/git:
+    driver: local
+  0_volumes/jenkins:
+    driver: local
